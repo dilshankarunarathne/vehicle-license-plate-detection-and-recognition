@@ -11,4 +11,8 @@ cursor = mydb.cursor()
 
 
 def query_plate(plate_num):
-    
+    pass
+
+
+def add_info():
+    pass
