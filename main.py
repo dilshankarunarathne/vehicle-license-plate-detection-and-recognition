@@ -35,9 +35,11 @@ def add_details():
     phone = request.form['phone']
     address = request.form['address']
 
-    add_info(plate, name, phone, address)
-
-    return render_template('result.html', plate=plate)
+    try:
+        add_info(plate, name, phone, address)
+        return {'status': 'success'}
+    except Exception as e:
+        return {'status': 'failed', 'error': str(e)}
 
 
 if __name__ == '__main__':
