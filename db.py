@@ -11,10 +11,10 @@ cursor = mydb.cursor()
 
 
 def query_plate(plate_num):
-    cursor.execute("SELECT * FROM vehicle WHERE plate_number = %s", (plate_num,))
+    cursor.execute("SELECT * FROM vehicle WHERE plate_number = %s", (plate_num.strip(),))
     return cursor.fetchall()
 
 
 def add_info(plate_num, owner_name, owner_phone, owner_address):
     cursor.execute("INSERT INTO vehicle (plate_number, owner_name, owner_phone, owner_address) VALUES (%s, %s, %s, %s)",
-                   (plate_num, owner_name, owner_phone, owner_address))
+                   (plate_num.strip(), owner_name, owner_phone, owner_address))
