@@ -59,6 +59,7 @@ def identify_plate(path):
 
     # Text Recognition
     text = pytesseract.image_to_string(license_plate, config=tessdata_dir_config)
+    
     # Draw License Plate and write the Text
     image = cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 3)
     image = cv2.putText(image, text, (x - 100, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
