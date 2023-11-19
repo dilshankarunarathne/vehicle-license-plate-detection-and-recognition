@@ -53,9 +53,12 @@ def identify_plate(path):
     # cv2.imshow("plate", license_plate)
     # cv2.waitKey(0)
 
-    # Removing Noise from the detected image, before sending to Tesseract
-    license_plate = cv2.bilateralFilter(license_plate, 11, 17, 17)
-    (thresh, license_plate) = cv2.threshold(license_plate, 150, 180, cv2.THRESH_BINARY)
+    try:
+        # Removing Noise from the detected image, before sending to Tesseract
+        license_plate = cv2.bilateralFilter(license_plate, 11, 17, 17)
+        (thresh, license_plate) = cv2.threshold(license_plate, 150, 180, cv2.THRESH_BINARY)
+    except:
+        pass
 
     # Text Recognition
     text = pytesseract.image_to_string(license_plate, config=tessdata_dir_config)
