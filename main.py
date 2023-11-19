@@ -23,7 +23,7 @@ def process_image():
 
         results = query_plate(plate)
 
-        return render_template('result.html', plate=plate)
+        return render_template('result.html', plate=plate, results=results)
 
     return render_template('upload.html', error=True)
 
