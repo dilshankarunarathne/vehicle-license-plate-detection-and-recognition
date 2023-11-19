@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle License Plate Recognition</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: blue;
+        }
+        form {
+            margin: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Upload Vehicle Image</h1>
+    <form action="/process" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
