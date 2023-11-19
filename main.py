@@ -19,6 +19,9 @@ def process_image():
         uploaded_file.save('uploaded_image.jpg')
 
         plate = identify_plate('uploaded_image.jpg')
+
+        results = query_plate(plate)
+
         return render_template('result.html', plate=plate)
 
     return render_template('upload.html', error=True)
