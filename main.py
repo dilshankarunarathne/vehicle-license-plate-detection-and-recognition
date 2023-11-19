@@ -22,6 +22,7 @@ def process_image():
         plate = identify_plate('uploaded_image.jpg')
 
         results = query_plate(plate)
+        print(results)
 
         return render_template('result.html', plate=plate, results=results)
 
