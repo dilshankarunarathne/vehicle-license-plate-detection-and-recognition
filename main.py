@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 
+from db import query_plate
 from ocr import identify_plate
 
 app = Flask(__name__)
