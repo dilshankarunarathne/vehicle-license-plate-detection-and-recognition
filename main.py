@@ -2,8 +2,15 @@ from flask import Flask, render_template, request
 
 from db import query_plate, add_info
 from ocr import identify_plate
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+cors = CORS(app, resource={
+    r"/*":{
+        "origins":"*"
+    }
+})
 
 
 @app.route('/')
@@ -24,17 +31,20 @@ def process_image():
         results = query_plate(plate)
         print(results)
 
-        return render_template('result.html', plate=plate, results=results)
+        return {'plate': plate, 'results': results}
+        # return render_template('result.html', plate=plate, results=results)
 
-    return render_template('upload.html', error=True)
+    # return render_template('upload.html', error=True)
+    return {'error': 'no file uploaded'}
 
 
 @app.route('/add', methods=['POST'])
 def add_details():
-    plate = request.form['plate']
-    name = request.form['name']
-    phone = request.form['phone']
-    address = request.form['address']
+    data = request.get_json()
+    plate = data['plate']
+    name = data['name']
+    phone = data['phone']
+    address = data['address']
 
     try:
         add_info(plate, name, phone, address)
