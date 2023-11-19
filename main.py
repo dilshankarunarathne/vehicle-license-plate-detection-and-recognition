@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from db import query_plate
+from db import query_plate, add_info
 from ocr import identify_plate
 
 app = Flask(__name__)
@@ -26,6 +26,18 @@ def process_image():
         return render_template('result.html', plate=plate)
 
     return render_template('upload.html', error=True)
+
+
+@app.route('/add', methods=['POST'])
+def add_details():
+    plate = request.form['plate']
+    name = request.form['name']
+    phone = request.form['phone']
+    address = request.form['address']
+
+    add_info(plate, name, phone, address)
+
+    return render_template('result.html', plate=plate)
 
 
 if __name__ == '__main__':
