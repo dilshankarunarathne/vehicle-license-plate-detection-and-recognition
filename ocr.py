@@ -61,6 +61,8 @@ def identify_plate(path):
     except:
         pass
 
+    print("License Plate :", pytesseract.image_to_string(license_plate))
+
     # Text Recognition
     text = pytesseract.image_to_string(license_plate)
     text = text.replace(" ", "")
