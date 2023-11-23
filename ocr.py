@@ -8,6 +8,7 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 
 
 def identify_plate(path):
+    print(path)
     image = cv2.imread(path)
     image = imutils.resize(image, width=500)
 
@@ -61,7 +62,7 @@ def identify_plate(path):
         pass
 
     # Text Recognition
-    text = pytesseract.image_to_string(license_plate, config=tessdata_dir_config)
+    text = pytesseract.image_to_string(license_plate)
     text = text.replace(" ", "")
 
     # Draw License Plate and write the Text
