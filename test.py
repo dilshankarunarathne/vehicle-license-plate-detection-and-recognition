@@ -6,8 +6,10 @@ import pytesseract
 tessdata_dir_config = '--tessdata-dir "C:\\Program Files\\Tesseract-OCR\\tessdata"'
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
+img_path = 'sample\\fail.png'
+
 # Read the image file
-image = cv2.imread('sample\car4.jpg')
+image = cv2.imread(img_path)
 image = imutils.resize(image, width=500)
 
 cv2.imshow("Original", image)
@@ -57,9 +59,22 @@ for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         license_plate = gray_image[y:y + h, x:x + w]
         break
-(thresh, license_plate) = cv2.threshold(license_plate, 127, 255, cv2.THRESH_BINARY)
-cv2.imshow("plate", license_plate)
-cv2.waitKey(0)
+
+# Check if a license plate was found
+if license_plate is None:
+    print("No license plate found in image.")
+    # Stop further processing for this image
+else:
+    (thresh, license_plate) = cv2.threshold(license_plate, 127, 255, cv2.THRESH_BINARY)
+
+license_plate = cv2.imread(img_path)
+
+if license_plate is None:
+    print("Could not open or find the image")
+else:
+    cv2.imshow("plate", license_plate)
+
+
 # Removing Noise from the detected image, before sending to Tesseract
 license_plate = cv2.bilateralFilter(license_plate, 11, 17, 17)
 (thresh, license_plate) = cv2.threshold(license_plate, 150, 180, cv2.THRESH_BINARY)
